@@ -1,4 +1,4 @@
-# statscrape
+# StatScrape
 
 StatScrape is a NBA Roster and Stat Scraper built with Node.js, utilizing the Cheerio, Request, and Orchestrate npm's.
 
