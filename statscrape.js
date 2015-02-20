@@ -1,6 +1,9 @@
 var request = require('request'),
 	cheerio = require('cheerio'),
 	config = require('./config.js'),
+	//You will need to either set up your own
+	//config file or directly place your Orchestrate
+	//db key in the second set of parentheses 
 	db = require('orchestrate')(config.dbKey),
 	dbCollectionName = 'dbCollTest';
 
