@@ -5,6 +5,7 @@
   "main": "statscrape.js",
   "dependencies": {
     "cheerio": "^0.18.0",
+    "fs": "0.0.2",
     "orchestrate": "^0.3.16",
     "request": "^2.53.0"
   },

@@ -1,6 +1,7 @@
 var request = require('request'),
 	cheerio = require('cheerio'),
 	config = require('./config.js'),
+	fs = require('fs'),
 	//You will need to either set up your own
 	//config file or directly place your Orchestrate
 	//db key in the second set of parentheses 
@@ -8,7 +9,7 @@ var request = require('request'),
 	dbCollectionName = 'dbCollTest';
 
 
-setInterval(function(){
+setTimeout(function(){
 
 	var allTeamsArr = [],
 		teamAbbrev = [	'atl',
@@ -132,7 +133,24 @@ setInterval(function(){
 				request(player.url, function(err,res,body){
 					if(!err && res.statusCode == 200){
 						var $ = cheerio.load(body),
-							$info = $('li','.stat-info');
+							$info = $('li','.stat-info'),
+							$image = $('img', '.player-image')['0'],
+							num = player.url.match(/\d+/),
+							imageUrl;
+
+						if($image !== undefined) {
+							var playerImage = $image.attribs.style;
+							imageUrl = playerImage.match(/http?:\/\/.+?.png/g)[0];
+							var imageDir = "img/"+num+".png"; 
+
+							request(imageUrl).pipe(fs.createWriteStream(imageDir));
+							player.image = imageDir;
+						} else {
+							imageUrl = "img/no_image.png";
+							player.image = imageUrl;
+						}
+
+						player.player_id = num[0];
 
 						$info.each(function(){
 				        	var $playerStat = $(this).find('dt'),
@@ -178,7 +196,7 @@ setInterval(function(){
 	}, 300000);
 
     console.log("> Running Daily Scrape <");
-}, 86400000);//Interval is set to run the entire scraping process every 24 hours
+}, 3000);//Interval is set to run the entire scraping process every 24 hours
 
 
 
