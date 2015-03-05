@@ -9,7 +9,7 @@ var request = require('request'),
 	dbCollectionName = 'dbCollTest';
 
 
-setTimeout(function(){
+setInterval(function(){
 
 	var allTeamsArr = [],
 		teamAbbrev = [	'atl',
@@ -196,7 +196,7 @@ setTimeout(function(){
 	}, 300000);
 
     console.log("> Running Daily Scrape <");
-}, 3000);//Interval is set to run the entire scraping process every 24 hours
+}, 86400000);//Interval is set to run the entire scraping process every 24 hours
 
 
 
